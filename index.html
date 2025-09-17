@@ -1,0 +1,2382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samvedna Foundations - Empowering Humanity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 148, 136, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+        }
+
+        .navbar.scrolled {
+            background: rgba(13, 148, 136, 1);
+            padding: 0.5rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.1);
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #f43f5e;
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #f43f5e;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .nav-toggle.active .bar:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .nav-toggle.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active .bar:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .hero-slideshow {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .hero-slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-slide-reflection {
+            position: absolute;
+            bottom: -30%;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(255,255,255,0));
+            transform: scaleY(-1);
+            opacity: 0.4;
+        }
+
+        .hero-slide-reflection img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(13, 148, 136, 0.7), rgba(244, 63, 94, 0.7));
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            min-height: 2rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-arrow {
+            width: 30px;
+            height: 30px;
+            border: 2px solid white;
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #0d9488, #14b8a6);
+            color: white;
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(13, 148, 136, 0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #0d9488;
+            border: 2px solid #0d9488;
+        }
+
+        .btn-outline:hover {
+            background: #0d9488;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-large {
+            padding: 1.2rem 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0d9488;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about {
+            background: #f8fafc;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            padding-right: 2rem;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #0d9488;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .founder-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .founder-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        /* Projects Section */
+        .projects {
+            position: relative;
+        }
+
+        .projects-slider {
+            display: flex;
+            flex-direction: row;
+            overflow-x: auto;
+            gap: 2rem;
+            padding-bottom: 1rem;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+            scrollbar-color: #0d9488 #f8fafc;
+        }
+
+        .projects-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .projects-slider::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+
+        .projects-slider::-webkit-scrollbar-thumb {
+            background: #0d9488;
+            border-radius: 4px;
+        }
+
+        .project-card {
+            flex: 0 0 350px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            scroll-snap-align: start;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(13, 148, 136, 0.8), rgba(244, 63, 94, 0.8));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            color: white;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0d9488;
+            margin-bottom: 1rem;
+        }
+
+        .project-content p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .slider-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 20px;
+        }
+
+        .slider-arrow {
+            background: linear-gradient(45deg, #0d9488, #14b8a6);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
+        }
+
+        .slider-arrow:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(13, 148, 136, 0.6);
+        }
+
+        .slider-arrow:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* Gallery Section */
+        .gallery-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-preview img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-preview img:hover {
+            transform: scale(1.05);
+        }
+
+        .view-all-container {
+            text-align: right;
+            margin-top: 1rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Media Spotlights Section */
+        .filter-buttons {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            margin: 0 0.5rem;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .media-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .media-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .media-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .media-image img,
+        .media-image iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .media-card:hover .media-image img,
+        .media-card:hover .media-image iframe {
+            transform: scale(1.1);
+        }
+
+        .media-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(13, 148, 136, 0.8), rgba(244, 63, 94, 0.8));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .media-card:hover .media-overlay {
+            opacity: 1;
+        }
+
+        .category-tag {
+            background: #0d9488;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .media-content {
+            padding: 1.5rem;
+        }
+
+        .media-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0d9488;
+            margin-bottom: 0.5rem;
+        }
+
+        .media-content .date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Team Section */
+        .team {
+            background: #f8fafc;
+        }
+
+        .team-grid {
+            display: flex;
+            flex-direction: row;
+            overflow-x: auto;
+            gap: 2rem;
+            padding-bottom: 1rem;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+            scrollbar-color: #0d9488 #f8fafc;
+        }
+
+        .team-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .team-grid::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+
+        .team-grid::-webkit-scrollbar-thumb {
+            background: #0d9488;
+            border-radius: 4px;
+        }
+
+        .team-member {
+            flex: 0 0 300px;
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            scroll-snap-align: start;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-image {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #0d9488;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-info h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            color: #0d9488;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .member-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Stories Section */
+        .story-featured {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .story-image {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .story-text h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #0d9488;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-text p {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        /* Impact Section */
+        .impact {
+            background: linear-gradient(135deg, #0d9488, #14b8a6);
+            color: white;
+            text-align: center;
+        }
+
+        .impact .section-title,
+        .impact .section-subtitle {
+            color: white;
+        }
+
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: #f43f5e;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .donate-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .donate-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .donate-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #f8fafc;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            space-y: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: #0d9488;
+            margin-top: 0.25rem;
+        }
+
+        .contact-item h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .contact-item p {
+            color: #666;
+            margin: 0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #0d9488, #14b8a6);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(13, 148, 136, 0.4);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0d9488;
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            width: auto;
+            border-radius: 6px;
+        }
+
+        .footer-logo span {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #f43f5e;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #000;
+        }
+
+        /* Floating Contact Button */
+        .floating-contact {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1500;
+        }
+
+        .floating-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #0d9488, #14b8a6);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(13, 148, 136, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(13, 148, 136, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-30px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-15px);
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.7);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background-color: rgba(13, 148, 136, 0.98);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-text {
+                padding-right: 0;
+            }
+
+            .founder-image img {
+                height: 300px;
+            }
+
+            .projects-slider {
+                gap: 1rem;
+            }
+
+            .project-card {
+                flex: 0 0 300px;
+            }
+
+            .team-grid {
+                gap: 1rem;
+            }
+
+            .team-member {
+                flex: 0 0 250px;
+            }
+
+            .story-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem;
+            }
+
+            .story-image img {
+                height: 250px;
+            }
+
+            .impact-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .donate-section {
+                padding: 2rem;
+            }
+
+            .floating-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .hero-slide-reflection {
+                height: 20%;
+                bottom: -20%;
+            }
+
+            .slider-controls {
+                padding: 0 10px;
+            }
+
+            .slider-arrow {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .founder-image img {
+                height: 250px;
+            }
+
+            .projects-slider {
+                gap: 1rem;
+            }
+
+            .project-card {
+                flex: 0 0 250px;
+            }
+
+            .project-content,
+            .team-member {
+                padding: 1.5rem;
+            }
+
+            .story-content {
+                padding: 1.5rem;
+            }
+
+            .story-text h3 {
+                font-size: 1.5rem;
+            }
+
+            .impact-stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .contact-form {
+                padding: 1.5rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 1.5rem;
+            }
+
+            .floating-contact {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .hero-slide-reflection {
+                height: 15%;
+                bottom: -15%;
+            }
+
+            .slider-controls {
+                padding: 0 5px;
+            }
+
+            .slider-arrow {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/samvendna foundatioin logo (1).png" alt="Samvedna Foundations" class="logo-img">
+                <span class="logo-text">Samvedna Foundations</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link" data-section="home">Home</a>
+                <a href="#about" class="nav-link" data-section="about">About</a>
+                <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+                <a href="#gallery" class="nav-link" data-section="gallery">Gallery</a>
+                <a href="#media-spotlights" class="nav-link" data-section="media-spotlights">Media Spotlights</a>
+                <a href="#stories" class="nav-link" data-section="stories">Stories</a>
+                <a href="#team" class="nav-link" data-section="team">Team</a>
+                <a href="#donate" class="nav-link" data-section="donate">Donate</a>
+                <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+            <div class="hero-slideshow">
+                <div class="hero-slide">
+                    <img src="images/image1.jpg" alt="Community Empowerment 1">
+                    <div class="hero-slide-reflection">
+                        <img src="images/image1.jpg" alt="Community Empowerment 1 Reflection">
+                    </div>
+                </div>
+                <div class="hero-slide">
+                    <img src="images/image2.jpg" alt="Education Initiative 1">
+                    <div class="hero-slide-reflection">
+                        <img src="images/image2.jpg" alt="Education Initiative 1 Reflection">
+                    </div>
+                </div>
+                <div class="hero-slide">
+                    <img src="images/image3.jpg" alt="Digital Learning 1">
+                    <div class="hero-slide-reflection">
+                        <img src="images/image3.jpg" alt="Digital Learning 1 Reflection">
+                    </div>
+                </div>
+                <div class="hero-slide">
+                    <img src="images/image4.jpg" alt="Community Empowerment 2">
+                    <div class="hero-slide-reflection">
+                        <img src="images/image4.jpg" alt="Community Empowerment 2 Reflection">
+                    </div>
+                </div>
+                <div class="hero-slide">
+                    <img src="images/image5.jpg" alt="Education Initiative 2">
+                    <div class="hero-slide-reflection">
+                        <img src="images/image5.jpg" alt="Education Initiative 2 Reflection">
+                    </div>
+                </div>
+                <div class="hero-slide">
+                    <img src="images/image6.jpg" alt="Digital Learning 2">
+                    <div class="hero-slide-reflection">
+                        <img src="images/image6.jpg" alt="Digital Learning 2 Reflection">
+                    </div>
+                </div>
+                <div class="hero-slide">
+                    <img src="images/image7.jpg" alt="Community Empowerment 3">
+                    <div class="hero-slide-reflection">
+                        <img src="images/image7.jpg" alt="Community Empowerment 3 Reflection">
+                    </div>
+                </div>
+                <div class="hero-slide">
+                    <img src="images/image8.jpg" alt="Education Initiative 3">
+                    <div class="hero-slide-reflection">
+                        <img src="images/image8.jpg" alt="Education Initiative 3 Reflection">
+                    </div>
+                </div>
+                <div class="hero-slide">
+                    <img src="images/image9.jpg" alt="Digital Learning 3">
+                    <div class="hero-slide-reflection">
+                        <img src="images/image9.jpg" alt="Digital Learning 3 Reflection">
+                    </div>
+                </div>
+                <div class="hero-slide">
+                    <img src="images/image10.jpg" alt="Community Empowerment 4">
+                    <div class="hero-slide-reflection">
+                        <img src="images/image10.jpg" alt="Community Empowerment 4 Reflection">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Samvedna Foundations</h1>
+                <p class="hero-subtitle" id="changing-text">Empowering Communities</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary" data-section="projects">Explore Our Work</a>
+                    <a href="#contact" class="btn btn-outline" data-section="contact">Join Us</a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Samvedna Foundations</h2>
+                <p class="section-subtitle">Building a sustainable and inclusive future for India</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Founder's Message</h3>
+                    <p>At Samvedna Foundations, our vision is to create a world where every individual has the opportunity to thrive. Founded with a deep commitment to compassion and action, we aim to empower communities, nurture education, and protect our environment for future generations.</p>
+                    <p>Our journey began with a simple belief: small acts of kindness, when multiplied, can transform lives. Through our initiatives, we strive to foster sustainable change, uplift the underserved, and inspire collective action. Together, we can build a brighter, more equitable future.</p>
+                    <p>Join us in this mission to make a lasting impact.</p>
+                    <p><strong>- Mrs. Shweta Gupta, Founder & President</strong></p>
+                </div>
+                <div class="founder-image">
+                    <img src="images/shweta.jpeg" alt="Mrs. Shweta Gupta, Founder">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Impact Projects</h2>
+                <p class="section-subtitle">Transforming lives through dedicated initiatives</p>
+            </div>
+            <div class="projects-slider" id="projects-slider">
+                <div class="project-card" data-project="sangini">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1594736797933-d0200ba6e804?w=500&h=300&fit=crop" alt="Sangini Project">
+                        <div class="project-overlay">
+                            <i class="fas fa-users project-icon"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Sangini</h3>
+                        <p>Empowering women through skill development and creating sustainable livelihood opportunities through eco-friendly product creation.</p>
+                        <button class="btn btn-small" onclick="openModal('sangini')">Learn More</button>
+                    </div>
+                </div>
+                <div class="project-card" data-project="gyanshala">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&h=300&fit=crop" alt="Gyanshala Project">
+                        <div class="project-overlay">
+                            <i class="fas fa-book project-icon"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Samvedna Gyanshala</h3>
+                        <p>Providing quality education and engaging activities to empower children from underserved communities for a brighter future.</p>
+                        <button class="btn btn-small" onclick="openModal('gyanshala')">Learn More</button>
+                    </div>
+                </div>
+                <div class="project-card" data-project="eshiksha">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500&h=300&fit=crop" alt="E-Shiksha Project">
+                        <div class="project-overlay">
+                            <i class="fas fa-laptop project-icon"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>E-Shiksha</h3>
+                        <p>Delivering digital education solutions to remote communities, ensuring access to knowledge and learning opportunities for all.</p>
+                        <button class="btn btn-small" onclick="openModal('eshiksha')">Learn More</button>
+                    </div>
+                </div>
+                <div class="project-card" data-project="sparrow">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1517167497479-10f2e27c9db0?w=500&h=300&fit=crop" alt="Sparrow Conservation Project">
+                        <div class="project-overlay">
+                            <i class="fas fa-dove project-icon"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Sparrow Conservation</h3>
+                        <p>Protecting sparrow populations through habitat restoration, community awareness, and sustainable conservation practices.</p>
+                        <button class="btn btn-small" onclick="openModal('sparrow')">Learn More</button>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <button class="slider-arrow" id="prev-project"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-arrow" id="next-project"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Check Our Gallery</h2>
+                <p class="section-subtitle">Explore our moments of impact</p>
+            </div>
+            <div class="gallery-preview">
+                <img src="images/image1.jpg" alt="Gallery 1">
+                <img src="images/image2.jpg" alt="Gallery 2">
+                <img src="images/image3.jpg" alt="Gallery 3">
+                <img src="images/image4.jpg" alt="Gallery 4">
+            </div>
+            <div class="view-all-container">
+                <button class="btn btn-primary" onclick="openGalleryModal()">View All</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Media Spotlights Section -->
+    <section id="media-spotlights" class="media-spotlights">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Media Spotlights</h2>
+                <p class="section-subtitle">Features and coverage of our work in various media outlets</p>
+            </div>
+            <div class="filter-buttons">
+                <button class="btn btn-primary filter-btn" data-filter="all">All</button>
+                <button class="btn btn-outline filter-btn" data-filter="article">Articles</button>
+                <button class="btn btn-outline filter-btn" data-filter="press">Press Releases</button>
+                <button class="btn btn-outline filter-btn" data-filter="video">Videos</button>
+                <button class="btn btn-outline filter-btn" data-filter="podcast">Founder's Podcast</button>
+            </div>
+            <div class="media-grid">
+                <!-- Article Cards -->
+                <div class="media-card" data-category="article">
+                    <div class="media-image">
+                        <img src="https://images.unsplash.com/photo-1495020689067-958852061064?w=500&h=300&fit=crop" alt="Article 1">
+                        <div class="media-overlay">
+                            <button class="btn btn-small">Read Now</button>
+                        </div>
+                    </div>
+                    <div class="media-content">
+                        <span class="category-tag">Article</span>
+                        <h3>Samvedna Foundations Empowers Rural Women</h3>
+                        <p class="date">September 17, 2025</p>
+                    </div>
+                </div>
+                <div class="media-card" data-category="article">
+                    <div class="media-image">
+                        <img src="https://images.unsplash.com/photo-1504711434969-e65cc115ffc2?w=500&h=300&fit=crop" alt="Article 2">
+                        <div class="media-overlay">
+                            <button class="btn btn-small">Read Now</button>
+                        </div>
+                    </div>
+                    <div class="media-content">
+                        <span class="category-tag">Article</span>
+                        <h3>Educational Initiatives Transforming Lives</h3>
+                        <p class="date">August 15, 2025</p>
+                    </div>
+                </div>
+                <div class="media-card" data-category="article">
+                    <div class="media-image">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&h=300&fit=crop" alt="Article 3">
+                        <div class="media-overlay">
+                            <button class="btn btn-small">Read Now</button>
+                        </div>
+                    </div>
+                    <div class="media-content">
+                        <span class="category-tag">Article</span>
+                        <h3>Sustainable Development in Focus</h3>
+                        <p class="date">July 10, 2025</p>
+                    </div>
+                </div>
+
+                <!-- Press Releases -->
+                <div class="media-card" data-category="press">
+                    <div class="media-image">
+                        <img src="https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=500&h=300&fit=crop" alt="Press 1">
+                        <div class="media-overlay">
+                            <button class="btn btn-small">Read Now</button>
+                        </div>
+                    </div>
+                    <div class="media-content">
+                        <span class="category-tag">Press Release</span>
+                        <h3>New Partnership for Education</h3>
+                        <p class="date">September 5, 2025</p>
+                    </div>
+                </div>
+                <div class="media-card" data-category="press">
+                    <div class="media-image">
+                        <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=500&h=300&fit=crop" alt="Press 2">
+                        <div class="media-overlay">
+                            <button class="btn btn-small">Read Now</button>
+                        </div>
+                    </div>
+                    <div class="media-content">
+                        <span class="category-tag">Press Release</span>
+                        <h3>Launch of Sparrow Conservation Project</h3>
+                        <p class="date">June 20, 2025</p>
+                    </div>
+                </div>
+                <div class="media-card" data-category="press">
+                    <div class="media-image">
+                        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=500&h=300&fit=crop" alt="Press 3">
+                        <div class="media-overlay">
+                            <button class="btn btn-small">Read Now</button>
+                        </div>
+                    </div>
+                    <div class="media-content">
+                        <span class="category-tag">Press Release</span>
+                        <h3>Annual Impact Report Released</h3>
+                        <p class="date">May 15, 2025</p>
+                    </div>
+                </div>
+
+                <!-- Video Cards -->
+                <div class="media-card" data-category="video">
+                    <div class="media-image">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+                        <div class="media-overlay">
+                            <button class="btn btn-small">Watch Now</button>
+                        </div>
+                    </div>
+                    <div class="media-content">
+                        <span class="category-tag">Video</span>
+                        <h3>Foundation Overview Video</h3>
+                        <p class="date">September 17, 2025</p>
+                    </div>
+                </div>
+                <div class="media-card" data-category="video">
+                    <div class="media-image">
+                        <iframe src="https://www.youtube.com/embed/3GwjfWFwkoE" frameborder="0" allowfullscreen></iframe>
+                        <div class="media-overlay">
+                            <button class="btn btn-small">Watch Now</button>
+                        </div>
+                    </div>
+                    <div class="media-content">
+                        <span class="category-tag">Video</span>
+                        <h3>Women Empowerment Stories</h3>
+                        <p class="date">August 1, 2025</p>
+                    </div>
+                </div>
+                <div class="media-card" data-category="video">
+                    <div class="media-image">
+                        <iframe src="https://www.youtube.com/embed/J---aiyznGQ" frameborder="0" allowfullscreen></iframe>
+                        <div class="media-overlay">
+                            <button class="btn btn-small">Watch Now</button>
+                        </div>
+                    </div>
+                    <div class="media-content">
+                        <span class="category-tag">Video</span>
+                        <h3>Environmental Initiatives</h3>
+                        <p class="date">July 5, 2025</p>
+                    </div>
+                </div>
+
+                <!-- Founder's Podcast Card -->
+                <div class="media-card" data-category="podcast">
+                    <div class="media-image">
+                        <iframe src="https://www.youtube.com/embed/UGjG28uskhM?si=bWJUukNjW0tWlGul" frameborder="0" allowfullscreen></iframe>
+                        <div class="media-overlay">
+                            <button class="btn btn-small">Watch Now</button>
+                        </div>
+                    </div>
+                    <div class="media-content">
+                        <span class="category-tag">Founder's Podcast</span>
+                        <h3>Founder's Vision for a Sustainable Future</h3>
+                        <p class="date">September 10, 2025</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stories Section -->
+    <section id="stories" class="stories">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Success Stories</h2>
+                <p class="section-subtitle">Real impact, real change in people's lives</p>
+            </div>
+            <div class="story-featured">
+                <div class="story-content">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1509027572446-af8401acfdc3?w=600&h=400&fit=crop" alt="Success Story">
+                    </div>
+                    <div class="story-text">
+                        <h3>Rinku Devi's Transformation</h3>
+                        <p>With support from Samvedna Foundations, Rinku Devi received a tailoring machine that completely transformed her family's financial situation. What started as a small intervention became a pathway to independence and dignity.</p>
+                        <p>Today, she not only supports her family but also trains other women in her community, creating a ripple effect of empowerment that continues to grow.</p>
+                        <button class="btn btn-outline">Read More Stories</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Meet Our Team</h2>
+                <p class="section-subtitle">Dedicated individuals working towards positive change</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="images/shweta.jpeg" alt="Mrs. Shweta Gupta">
+                    </div>
+                    <div class="member-info">
+                        <h3>Mrs. Shweta Gupta</h3>
+                        <p class="member-role">President</p>
+                        <p class="member-description">Leading with passion, driving our mission for community empowerment and sustainable development.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="images/Shyam Gupta.jpg" alt="Mr. Shyam Gupta">
+                    </div>
+                    <div class="member-info">
+                        <h3>Mr. Shyam Gupta</h3>
+                        <p class="member-role">Chief Advisor</p>
+                        <p class="member-description">Guiding strategic initiatives and ensuring sustainable impact across all our programs.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="images/Roopam Sadh.jpeg" alt="Mr. Roopam Sadh">
+                    </div>
+                    <div class="member-info">
+                        <h3>Mr. Roopam Sadh</h3>
+                        <p class="member-role">Trustee</p>
+                        <p class="member-description">Overseeing operations to support education and community empowerment initiatives.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="images/Rahul Verma(Secratary).jpg" alt="Mr. Rahul Verma">
+                    </div>
+                    <div class="member-info">
+                        <h3>Mr. Rahul Verma</h3>
+                        <p class="member-role">Secretary</p>
+                        <p class="member-description">Coordinating educational programs to ensure quality learning for all beneficiaries.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="images/Niharika Upadh.jpeg" alt="Ms. Niharika Upadh">
+                    </div>
+                    <div class="member-info">
+                        <h3>Ms. Niharika Upadh</h3>
+                        <p class="member-role">Environmental Specialist</p>
+                        <p class="member-description">Leading environmental protection and sustainability efforts.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="images/Pratibha Kul.jpeg" alt="Mrs. Anjali Singh">
+                    </div>
+                    <div class="member-info">
+                        <h3>Mrs. Anjali Singh</h3>
+                        <p class="member-role">Community Outreach Manager</p>
+                        <p class="member-description">Managing outreach programs to connect with communities in need.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="images/Anju Kandhari.jpeg" alt="Ms. Anju Kandhari">
+                    </div>
+                    <div class="member-info">
+                        <h3>Ms. Anju Kandhari</h3>
+                        <p class="member-role">Finance Director</p>
+                        <p class="member-description">Handling financial planning and resource allocation for projects.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="images/shreya.jpeg" alt="Ms. Shreya Srivatava">
+                    </div>
+                    <div class="member-info">
+                        <h3>Ms. Shreya Srivastava</h3>
+                        <p class="member-role">IT Operations Manager</p>
+                        <p class="member-description">Overseeing the execution of various impact projects.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop&crop=face" alt="Mr. Amit Joshi">
+                    </div>
+                    <div class="member-info">
+                        <h3>Mr. Amit Joshi</h3>
+                        <p class="member-role">IT Specialist</p>
+                        <p class="member-description">Managing digital infrastructure and technology solutions.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face" alt="Mrs. Sunita Reddy">
+                    </div>
+                    <div class="member-info">
+                        <h3>Mrs. Sunita Reddy</h3>
+                        <p class="member-role">Volunteer Coordinator</p>
+                        <p class="member-description">Coordinating volunteers for community events and programs.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1554151229-14d0188d57af?w=300&h=300&fit=crop&crop=face" alt="Mr. Karan Mehta">
+                    </div>
+                    <div class="member-info">
+                        <h3>Mr. Karan Mehta</h3>
+                        <p class="member-role">Legal Advisor</p>
+                        <p class="member-description">Providing legal guidance for foundation operations.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1487412720507-e7ab5bea8706?w=300&h=300&fit=crop&crop=face" alt="Ms. Pooja Desai">
+                    </div>
+                    <div class="member-info">
+                        <h3>Ms. Pooja Desai</h3>
+                        <p class="member-role">Marketing Head</p>
+                        <p class="member-description">Leading marketing and awareness campaigns for the foundation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="donate" class="impact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Impact in Numbers</h2>
+                <p class="section-subtitle">Together, we're making a difference</p>
+            </div>
+            <div class="impact-stats">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="5000">0</div>
+                    <p class="stat-label">Children Educated</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="2000">0</div>
+                    <p class="stat-label">Women Empowered</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="10000">0</div>
+                    <p class="stat-label">Trees Planted</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="50">0</div>
+                    <p class="stat-label">Communities Reached</p>
+                </div>
+            </div>
+            <div class="donate-section">
+                <h3>Support Our Mission</h3>
+                <p>Your contribution helps us reach more communities and create lasting positive change.</p>
+                <button class="btn btn-primary btn-large">Donate Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Let's work together to create positive change</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt contact-icon"></i>
+                        <div>
+                            <h4>Address</h4>
+                            <p>Gautam Buddh Nagar<br>Uttar Pradesh, India</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope contact-icon"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>samvednaofficial@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone contact-icon"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+91 8595397572</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/samvednafoundationsofficial/" class="social-link">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://twitter.com/Samvednafounda2" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/samvendna foundatioin logo (1).png" alt="Samvedna Foundations">
+                    <span>Samvedna Foundations</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#contact">Contact Us</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                <p>&copy; 2025 Samvedna Foundations. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Project Modals -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Gallery Modal -->
+    <div id="gallery-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeGalleryModal()">&times;</span>
+            <div id="gallery-grid" class="gallery-grid"></div>
+        </div>
+    </div>
+
+    <!-- Floating Contact Button -->
+    <div class="floating-contact">
+        <button class="floating-btn" onclick="scrollToContact()">
+            <i class="fas fa-comment"></i>
+        </button>
+    </div>
+
+       <script>
+        // DOM Content Loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeNavigation();
+            initializeHero();
+            initializeScrollAnimations();
+            initializeCounters();
+            initializeContactForm();
+            initializeModals();
+            initializeMobileMenu();
+            initializeSlideshow();
+            initializeMediaFilters();
+            initializeProjectSlider();
+        });
+
+        // Media Filters
+        function initializeMediaFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const mediaCards = document.querySelectorAll('.media-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.dataset.filter;
+
+                    // Update button styles
+                    filterBtns.forEach(b => {
+                        b.classList.remove('btn-primary');
+                        b.classList.add('btn-outline');
+                    });
+                    btn.classList.remove('btn-outline');
+                    btn.classList.add('btn-primary');
+
+                    // Filter cards
+                    mediaCards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        // Navigation functionality
+        function initializeNavigation() {
+            const navbar = document.getElementById('navbar');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                // Update active nav link based on scroll position
+                updateActiveNavLink();
+            });
+            
+            // Smooth scroll for navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('data-section');
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        const offsetTop = targetSection.getBoundingClientRect().top + window.pageYOffset - 80;
+                        
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        closeMobileMenu();
+                    }
+                });
+            });
+        }
+
+        // Update active navigation link
+        function updateActiveNavLink() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 100 && rect.bottom >= 100) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-section') === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Mobile menu functionality
+        function initializeMobileMenu() {
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                    closeMobileMenu();
+                }
+            });
+        }
+
+        function closeMobileMenu() {
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+
+        // Hero section functionality
+        function initializeHero() {
+            const heroTexts = [
+                'Empowering Communities',
+                'Nurturing Nature',
+                'Educating the Future',
+                'Building Equality',
+                'Inspiring Change',
+                'Sustainable Impact'
+            ];
+            
+            const changingTextElement = document.getElementById('changing-text');
+            let currentTextIndex = 0;
+            
+            // Change hero text every 3 seconds
+            setInterval(() => {
+                changingTextElement.style.opacity = '0';
+                
+                setTimeout(() => {
+                    currentTextIndex = (currentTextIndex + 1) % heroTexts.length;
+                    changingTextElement.textContent = heroTexts[currentTextIndex];
+                    changingTextElement.style.opacity = '1';
+                }, 300);
+            }, 3000);
+            
+            // Scroll to top when logo is clicked
+            document.querySelector('.nav-logo').addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Slideshow functionality
+        function initializeSlideshow() {
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+            
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.remove('active');
+                    if (i === index) {
+                        slide.classList.add('active');
+                    }
+                });
+            }
+            
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+            
+            // Initialize first slide
+            showSlide(currentSlide);
+            
+            // Change slide every 3 seconds
+            setInterval(nextSlide, 3000);
+        }
+
+        // Scroll animations
+        function initializeScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements for animation
+            const animatedElements = document.querySelectorAll('.project-card, .team-member, .story-content, .about-content');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        // Counter animation
+        function initializeCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            let counterAnimated = false;
+            
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !counterAnimated) {
+                        counterAnimated = true;
+                        animateCounters();
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            if (counters.length > 0) {
+                counterObserver.observe(counters[0].closest('.impact-stats'));
+            }
+        }
+
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.dataset.target);
+                let count = 0;
+                const increment = target / 100;
+                
+                const updateCounter = () => {
+                    count += increment;
+                    if (count < target) {
+                        counter.textContent = Math.ceil(count);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Contact form functionality
+        function initializeContactForm() {
+            const contactForm = document.getElementById('contact-form');
+            
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                console.log('Form submitted:', { name, email, subject, message });
+                
+                // Clear form
+                contactForm.reset();
+                
+                // Show success message
+                alert('Thank you for your message! We will get back to you soon.');
+            });
+        }
+
+        // Modal functionality
+        function initializeModals() {
+            const projectModal = document.getElementById('project-modal');
+            const projectModalClose = projectModal.querySelector('.modal-close');
+            const galleryModal = document.getElementById('gallery-modal');
+            const galleryModalClose = galleryModal.querySelector('.modal-close');
+            
+            // Close project modal
+            projectModalClose.addEventListener('click', closeModal);
+            projectModal.addEventListener('click', (e) => {
+                if (e.target === projectModal) {
+                    closeModal();
+                }
+            });
+            
+            // Close gallery modal
+            galleryModalClose.addEventListener('click', closeGalleryModal);
+            galleryModal.addEventListener('click', (e) => {
+                if (e.target === galleryModal) {
+                    closeGalleryModal();
+                }
+            });
+            
+            // Close modals with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeModal();
+                    closeGalleryModal();
+                }
+            });
+        }
+
+        // Close project modal
+        function closeModal() {
+            const projectModal = document.getElementById('project-modal');
+            projectModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close gallery modal
+        function closeGalleryModal() {
+            const galleryModal = document.getElementById('gallery-modal');
+            galleryModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Open project modal with content
+        function openModal(projectId) {
+            const modal = document.getElementById('project-modal');
+            const modalBody = document.getElementById('modal-body');
+            let content = '';
+
+            // Project-specific content
+            switch (projectId) {
+                case 'sangini':
+                    content = `
+                        <h2>Sangini</h2>
+                        <p>Sangini is dedicated to empowering women through skill development and sustainable livelihoods. We provide training in eco-friendly product creation, enabling women to achieve financial independence and contribute to their communities.</p>
+                        <img src="https://images.unsplash.com/photo-1594736797933-d0200ba6e804?w=500&h=300&fit=crop" alt="Sangini Project" style="width:100%;border-radius:10px;margin-top:1rem;">
+                        <p>Our programs include workshops, mentorship, and access to markets, ensuring long-term impact and empowerment.</p>
+                    `;
+                    break;
+                case 'gyanshala':
+                    content = `
+                        <h2>Samvedna Gyanshala</h2>
+                        <p>Samvedna Gyanshala focuses on providing quality education to children from underserved communities. Our holistic approach includes academic support, extracurricular activities, and life skills training.</p>
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&h=300&fit=crop" alt="Gyanshala Project" style="width:100%;border-radius:10px;margin-top:1rem;">
+                        <p>We aim to create a nurturing environment where every child can thrive and build a brighter future.</p>
+                    `;
+                    break;
+                case 'eshiksha':
+                    content = `
+                        <h2>E-Shiksha</h2>
+                        <p>E-Shiksha brings digital education to remote communities, bridging the gap in access to quality learning resources. We provide digital tools, online courses, and teacher training.</p>
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500&h=300&fit=crop" alt="E-Shiksha Project" style="width:100%;border-radius:10px;margin-top:1rem;">
+                        <p>Our goal is to ensure every child has access to modern education, regardless of their location.</p>
+                    `;
+                    break;
+                case 'sparrow':
+                    content = `
+                        <h2>Sparrow Conservation</h2>
+                        <p>Our Sparrow Conservation project focuses on protecting sparrow populations through habitat restoration and community awareness. We install nesting boxes and promote sustainable practices.</p>
+                        <img src="https://images.unsplash.com/photo-1517167497479-10f2e27c9db0?w=500&h=300&fit=crop" alt="Sparrow Conservation Project" style="width:100%;border-radius:10px;margin-top:1rem;">
+                        <p>Join us in preserving biodiversity and protecting these vital species for future generations.</p>
+                    `;
+                    break;
+                default:
+                    content = '<p>Project details not found.</p>';
+            }
+
+            modalBody.innerHTML = content;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Open gallery modal
+        function openGalleryModal() {
+            const galleryModal = document.getElementById('gallery-modal');
+            const galleryGrid = document.getElementById('gallery-grid');
+            const images = [
+                'images/image1.jpg',
+                'images/image2.jpg',
+                'images/image3.jpg',
+                'images/image4.jpg',
+                'images/image5.jpg',
+                'images/image6.jpg',
+                'images/image7.jpg',
+                'images/image8.jpg',
+                'images/image9.jpg',
+                'images/image10.jpg'
+            ];
+
+            galleryGrid.innerHTML = images.map(img => `
+                <img src="${img}" alt="Gallery Image" style="width:100%;height:200px;object-fit:cover;border-radius:15px;">
+            `).join('');
+
+            galleryModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Project slider functionality
+        function initializeProjectSlider() {
+            const slider = document.getElementById('projects-slider');
+            const prevBtn = document.getElementById('prev-project');
+            const nextBtn = document.getElementById('next-project');
+            
+            function updateButtonStates() {
+                prevBtn.disabled = slider.scrollLeft <= 0;
+                nextBtn.disabled = slider.scrollLeft >= slider.scrollWidth - slider.clientWidth;
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                const cardWidth = slider.querySelector('.project-card').offsetWidth + 32; // Including gap
+                slider.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+                setTimeout(updateButtonStates, 300);
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                const cardWidth = slider.querySelector('.project-card').offsetWidth + 32; // Including gap
+                slider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                setTimeout(updateButtonStates, 300);
+            });
+            
+            slider.addEventListener('scroll', updateButtonStates);
+            updateButtonStates();
+        }
+
+        // Scroll to contact section
+        function scrollToContact() {
+            const contactSection = document.getElementById('contact');
+            const offsetTop = contactSection.getBoundingClientRect().top + window.pageYOffset - 80;
+
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
