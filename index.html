@@ -36,7 +36,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(13, 148, 136, 0.95);
+            background: white;
             backdrop-filter: blur(10px);
             z-index: 1000;
             transition: all 0.3s ease;
@@ -65,18 +65,21 @@
         }
 
         .logo-img {
-            height: 50px;
-            width: auto;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-        }
+    height: 80px;
+    width: 80px; /* equal height and width for perfect circle */
+    border-radius: 50%; /* makes it circular */
+    transition: transform 0.3s ease;
+    background-color: white; /* white circular background */
+    padding: 2px; /* optional, gives spacing inside circle */
+    object-fit: contain; /* keeps logo inside circle without stretching */
+}
 
         .logo-img:hover {
             transform: scale(1.1);
         }
 
         .logo-text {
-            color: white;
+            color: black;
             font-size: 1.5rem;
             font-weight: 700;
         }
@@ -88,7 +91,7 @@
         }
 
         .nav-link {
-            color: white;
+            color: black;
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
@@ -1710,11 +1713,11 @@
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="images/images/Shyam Gupta.jpg" alt="Mr. Shyam Gupta">
+                        <img src="images/images/Pratibha Kul.jpeg" alt="Mr. Shyam Gupta">
                     </div>
                     <div class="member-info">
-                        <h3>Mr. Shyam Gupta</h3>
-                        <p class="member-role">Chief Advisor</p>
+                        <h3>Pratibha Kulshrestha </h3>
+                        <p class="member-role">Vice President</p>
                         <p class="member-description">Guiding strategic initiatives and ensuring sustainable impact across all our programs.</p>
                     </div>
                 </div>
