@@ -922,6 +922,70 @@
             min-height: 120px;
         }
 
+        /* Partners Section */
+        .partners {
+            background: #f8fafc;
+            overflow: hidden;
+        }
+
+        .partners-slider {
+            display: flex;
+            flex-direction: row;
+            gap: 1.5rem;
+            animation: autoScroll 20s linear infinite;
+            width: max-content;
+        }
+
+        .partner-card {
+            flex: 0 0 200px;
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .partner-image {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .partner-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .partner-content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0d9488;
+            margin-bottom: 0.5rem;
+        }
+
+        .partner-content p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        @keyframes autoScroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-1000px);
+            }
+        }
+
+
         /* Footer */
         .footer {
             background: #1a1a1a;
@@ -1873,6 +1937,110 @@
             </div>
         </div>
     </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="partners">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Partners</h2>
+                <p class="section-subtitle">Collaborating for a greater impact</p>
+            </div>
+            <div class="partners-slider">
+                <div class="partner-card">
+                    <div class="partner-image">
+                        <img src="images/images/partner1.jpg" alt="Partner 1">
+                    </div>
+                    <div class="partner-content">
+                        <h3>GreenFuture NGO</h3>
+                        <p>Supporting environmental conservation initiatives.</p>
+                    </div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-image">
+                        <img src="images/images/partner2.jpg" alt="Partner 2">
+                    </div>
+                    <div class="partner-content">
+                        <h3>EduCare Foundation</h3>
+                        <p>Promoting education for underprivileged children.</p>
+                    </div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-image">
+                        <img src="images/images/partner3.jpg" alt="Partner 3">
+                    </div>
+                    <div class="partner-content">
+                        <h3>WomenEmpower Trust</h3>
+                        <p>Empowering women through skill development.</p>
+                    </div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-image">
+                        <img src="images/images/partner4.jpg" alt="Partner 4">
+                    </div>
+                    <div class="partner-content">
+                        <h3>CommunityAid Network</h3>
+                        <p>Building stronger communities together.</p>
+                    </div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-image">
+                        <img src="images/images/partner5.jpg" alt="Partner 5">
+                    </div>
+                    <div class="partner-content">
+                        <h3>Eco Innovate</h3>
+                        <p>Innovating for sustainable development.</p>
+                    </div>
+                </div>
+                <!-- Duplicate cards for seamless looping -->
+                <div class="partner-card">
+                    <div class="partner-image">
+                        <img src="images/images/partner1.jpg" alt="Partner 1">
+                    </div>
+                    <div class="partner-content">
+                        <h3>GreenFuture NGO</h3>
+                        <p>Supporting environmental conservation initiatives.</p>
+                    </div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-image">
+                        <img src="images/images/partner2.jpg" alt="Partner 2">
+                    </div>
+                    <div class="partner-content">
+                        <h3>EduCare Foundation</h3>
+                        <p>Promoting education for underprivileged children.</p>
+                    </div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-image">
+                        <img src="images/images/partner3.jpg" alt="Partner 3">
+                    </div>
+                    <div class="partner-content">
+                        <h3>WomenEmpower Trust</h3>
+                        <p>Empowering women through skill development.</p>
+                    </div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-image">
+                        <img src="images/images/partner4.jpg" alt="Partner 4">
+                    </div>
+                    <div class="partner-content">
+                        <h3>CommunityAid Network</h3>
+                        <p>Building stronger communities together.</p>
+                    </div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-image">
+                        <img src="images/images/partner5.jpg" alt="Partner 5">
+                    </div>
+                    <div class="partner-content">
+                        <h3>Eco Innovate</h3>
+                        <p>Innovating for sustainable development.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Footer -->
     <footer class="footer">
