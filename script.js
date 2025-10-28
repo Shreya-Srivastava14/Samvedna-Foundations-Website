@@ -215,6 +215,9 @@ function initializeScrollAnimations() {
     });
 }
 
+
+
+
 // Counter animation
 function initializeCounters() {
     const counters = document.querySelectorAll('.stat-number');
