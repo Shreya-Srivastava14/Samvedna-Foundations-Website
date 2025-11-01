@@ -457,3 +457,55 @@ const close   = document.querySelector('.qr-close');
 btn.onclick = () => modal.style.display = 'flex';
 close.onclick = () => modal.style.display = 'none';
 window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
+
+
+const track = document.getElementById('storiesTrack');
+    const dots = document.querySelectorAll('.dot');
+    const totalSlides = document.querySelectorAll('.story-item').length - 1; // -1 because of duplicate
+    let currentSlide = 0;
+    const slideInterval = 5000; // 5 seconds
+
+    function goToSlide(index) {
+        track.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+        currentSlide = index;
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        goToSlide(currentSlide);
+
+        // Seamless loop: if we reach the duplicated first slide, jump back
+        if (currentSlide === totalSlides) {
+            setTimeout(() => {
+                track.style.transition = 'none';
+                goToSlide(0);
+                setTimeout(() => {
+                    track.style.transition = 'transform 0.6s ease-in-out';
+                }, 50);
+            }, 600);
+        }
+    }
+
+    // Auto-play
+    let autoSlide = setInterval(nextSlide, slideInterval);
+
+    // Dot navigation
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            clearInterval(autoSlide);
+            goToSlide(index);
+            autoSlide = setInterval(nextSlide, slideInterval);
+        });
+    });
+
+    // Pause on hover
+    document.querySelector('.stories-slider').addEventListener('mouseenter', () => {
+        clearInterval(autoSlide);
+    });
+
+    document.querySelector('.stories-slider').addEventListener('mouseleave', () => {
+        autoSlide = setInterval(nextSlide, slideInterval);
+    });
