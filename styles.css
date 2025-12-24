@@ -208,8 +208,12 @@ body {
 .hero-slide img {
     width: 100%;
     height: 100%;
-    object-fit: contain;  
+    object-fit: cover;
 }
+.hero-slide img.top-focus {
+    object-position: top center;
+}
+
 
 .hero-slide-reflection {
     position: absolute;
@@ -217,7 +221,7 @@ body {
     left: 0;
     width: 100%;
     height: 30%;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(255,255,255,0));
+    /* background: linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(255,255,255,0)); */
     transform: scaleY(-1);
     opacity: 0.4;
 }
@@ -234,7 +238,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(13, 148, 136, 0.7), rgba(244, 63, 94, 0.7));
+    /* background: linear-gradient(135deg, rgba(13, 148, 136, 0.7), rgba(244, 63, 94, 0.7)); */
     z-index: -1;
 }
 
@@ -401,10 +405,10 @@ section {
     width: 100%;
     height: 500px;
     object-fit: cover;
-     object-position: top-center;
+object-position: top-center;
+ object-position: top center;
+
 }
-
-
 
 
 /* Projects Section */
