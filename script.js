@@ -131,14 +131,14 @@ function closeMobileMenu() {
 
 // Hero section functionality
 function initializeHero() {
-    const heroTexts = [
-        'Empowering Communities',
-        'Nurturing Nature',
-        'Educating the Future',
-        'Building Equality',
-        'Inspiring Change',
-        'Sustainable Impact'
-    ];
+    // const heroTexts = [
+    //     'Empowering Communities',
+    //     'Nurturing Nature',
+    //     'Educating the Future',
+    //     'Building Equality',
+    //     'Inspiring Change',
+    //     'Sustainable Impact'
+    // ];
     
     const changingTextElement = document.getElementById('changing-text');
     let currentTextIndex = 0;
