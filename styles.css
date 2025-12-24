@@ -22,6 +22,34 @@ body {
     padding: 0 20px;
 }
 
+
+/* ── Very important global mobile fixes ── */
+html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+}
+
+body {
+    font-size: 16px;          /* better base size for mobile readability */
+    min-width: 320px;         /* prevent too narrow squeezing */
+}
+
+img, iframe, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Prevent horizontal scroll on body */
+html, body {
+    overflow-x: hidden;
+}
+
+/* Better box-sizing everywhere */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 /* Navigation Styles */
 .navbar {
     position: fixed;
@@ -161,6 +189,45 @@ body {
     transform: rotate(45deg) translate(-5px, -6px);
 }
 
+
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 0;                       /* better from top */
+        height: 100vh;
+        width: 80%;                   /* wider for easier use */
+        max-width: 320px;
+        background: rgba(13, 148, 136, 0.98);
+        flex-direction: column;
+        justify-content: center;
+        padding: 2rem 1rem;
+        transition: left 0.4s ease;
+        z-index: 999;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-link {
+        font-size: 1.3rem;
+        padding: 1.2rem 0;
+        color: white;
+    }
+
+    /* Hamburger bigger & better contrast */
+    .nav-toggle {
+        z-index: 1000;
+    }
+
+    .bar {
+        width: 32px;
+        height: 4px;
+        background: #0d9488;   /* better color contrast */
+    }
+}
+
 /* Hero Section */
 .hero {
     height: 100vh;
@@ -290,7 +357,24 @@ body {
     border-left: none;
     transform: rotate(45deg);
 }
+@media (max-width: 768px) {
+    .hero {
+        height: 85vh;              /* less height → more content visible */
+    }
 
+    .hero-title {
+        font-size: 2.4rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .hero-slide img,
+    .hero-slide-reflection img {
+        object-position: center center !important; /* better centering on mobile */
+    }
+}
 
 
 /* Buttons */
@@ -598,6 +682,48 @@ object-position: top-center;
   background: #ccc;
   cursor: not-allowed;
   box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    /* All horizontal sliders become scrollable nicely */
+    .projects-slider,
+    .team-grid,
+    .media-grid,
+    .stories-slider {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 10px;
+        scroll-padding: 10px;
+    }
+
+    .project-card,
+    .team-member,
+    .media-card {
+        flex: 0 0 85vw;          /* almost full width - feels natural */
+        max-width: 360px;
+        scroll-snap-align: start;
+    }
+
+    .media-grid {
+        grid-template-columns: 1fr; /* stack vertically on very small screens */
+    }
+
+    /* Improve readability */
+    .project-content p,
+    .member-description,
+    .media-content p {
+        font-size: 0.95rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .section-subtitle {
+        font-size: 1.05rem;
+    }
 }
 
 
@@ -1583,5 +1709,47 @@ object-position: top-center;
         width: 30px;
         height: 30px;
         font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* All horizontal sliders become scrollable nicely */
+    .projects-slider,
+    .team-grid,
+    .media-grid,
+    .stories-slider {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 10px;
+        scroll-padding: 10px;
+    }
+
+    .project-card,
+    .team-member,
+    .media-card {
+        flex: 0 0 85vw;          /* almost full width - feels natural */
+        max-width: 360px;
+        scroll-snap-align: start;
+    }
+
+    .media-grid {
+        grid-template-columns: 1fr; /* stack vertically on very small screens */
+    }
+
+    /* Improve readability */
+    .project-content p,
+    .member-description,
+    .media-content p {
+        font-size: 0.95rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .section-subtitle {
+        font-size: 1.05rem;
     }
 }

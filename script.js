@@ -509,3 +509,36 @@ const track = document.getElementById('storiesTrack');
     document.querySelector('.stories-slider').addEventListener('mouseleave', () => {
         autoSlide = setInterval(nextSlide, slideInterval);
     });
+
+
+
+   
+document.addEventListener('DOMContentLoaded', () => {
+    // Handle clicks on Read Now buttons
+    document.querySelectorAll('.media-card .read-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation(); // prevent card click if you add it later
+            const card = this.closest('.media-card');
+            const url = card.dataset.link;
+
+            if (url && url !== '#') {
+                window.open(url, '_blank', 'noopener,noreferrer');
+            } else {
+                alert('Article link is not available yet.');
+            }
+        });
+    });
+
+    // Optional: make the entire card clickable (very user-friendly)
+    document.querySelectorAll('.media-card[data-link]').forEach(card => {
+        if (card.dataset.link && card.dataset.link !== '#') {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function(e) {
+                // Don't trigger if clicked directly on button
+                if (e.target.closest('.btn') || e.target.closest('button')) return;
+                const url = this.dataset.link;
+                window.open(url, '_blank', 'noopener,noreferrer');
+            });
+        }
+    });
+});
