@@ -542,3 +542,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+// Project "Learn More" buttons - open link in new tab
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.project-card .learn-more-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation(); // prevent any card-level click if added later
+            const card = this.closest('.project-card');
+            const url = card.dataset.link;
+
+            if (url && url.trim() !== '' && url !== '#') {
+                window.open(url, '_blank', 'noopener,noreferrer');
+            } else {
+                alert('More details coming soon! Check our Facebook page for updates.');
+            }
+        });
+    });
+
+    // Optional: Make the entire project card clickable (better mobile UX)
+    document.querySelectorAll('.project-card[data-link]').forEach(card => {
+        if (card.dataset.link && card.dataset.link.trim() !== '' && card.dataset.link !== '#') {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function(e) {
+                // Don't trigger if clicked on button
+                if (e.target.closest('.btn')) return;
+                const url = this.dataset.link;
+                window.open(url, '_blank', 'noopener,noreferrer');
+            });
+        }
+    });
+});
