@@ -1002,9 +1002,8 @@ object-position: top-center;
 
 .stories-track {
     display: flex;
-    transition: transform 0.6s ease-in-out;
+    transition: transform 1s ease-in-out;
 }
-
 .story-item {
     min-width: 100%;
     padding: 0 1rem;
