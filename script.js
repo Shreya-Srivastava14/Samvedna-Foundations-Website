@@ -1,3 +1,36 @@
+// Performance optimization: Use passive event listeners
+const passiveSupported = checkPassiveSupport();
+
+function checkPassiveSupport() {
+    let passive = false;
+    try {
+        const options = {
+            get passive() {
+                passive = true;
+                return false;
+            }
+        };
+        window.addEventListener("test", null, options);
+        window.removeEventListener("test", null, options);
+    } catch (err) {
+        passive = false;
+    }
+    return passive;
+}
+
+// Debounce function for performance
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
@@ -9,9 +42,36 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMobileMenu();
     initializeSlideshow();
     initializeMediaFilters();
-    initializeProjectSlider();
+    initializeStoriesSlider();
+    initializeDonateModal();
+    initializeProjectCards();
+    initializeMediaCards();
     
+    // Lazy load images
+    if ('IntersectionObserver' in window) {
+        lazyLoadImages();
+    }
 });
+
+// Lazy load images for better performance
+function lazyLoadImages() {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                }
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
 
 // Media Filters
 function initializeMediaFilters() {
@@ -30,12 +90,14 @@ function initializeMediaFilters() {
             btn.classList.remove('btn-outline');
             btn.classList.add('btn-primary');
 
-            // Filter cards
+            // Filter cards with animation
             mediaCards.forEach(card => {
                 if (filter === 'all' || card.dataset.category === filter) {
                     card.style.display = 'block';
+                    setTimeout(() => card.style.opacity = '1', 10);
                 } else {
-                    card.style.display = 'none';
+                    card.style.opacity = '0';
+                    setTimeout(() => card.style.display = 'none', 300);
                 }
             });
         });
@@ -47,17 +109,17 @@ function initializeNavigation() {
     const navbar = document.getElementById('navbar');
     const navLinks = document.querySelectorAll('.nav-link');
     
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
+    // Navbar scroll effect - debounced for performance
+    const handleScroll = debounce(() => {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
-        
-        // Update active nav link based on scroll position
         updateActiveNavLink();
-    });
+    }, 10);
+    
+    window.addEventListener('scroll', handleScroll, passiveSupported ? { passive: true } : false);
     
     // Smooth scroll for navigation links
     navLinks.forEach(link => {
@@ -74,7 +136,6 @@ function initializeNavigation() {
                     behavior: 'smooth'
                 });
                 
-                // Close mobile menu if open
                 closeMobileMenu();
             }
         });
@@ -108,9 +169,17 @@ function initializeMobileMenu() {
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
     
-    navToggle.addEventListener('click', () => {
+    navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
         navToggle.classList.toggle('active');
         navMenu.classList.toggle('active');
+        
+        // Prevent body scroll when menu is open
+        if (navMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
     });
     
     // Close menu when clicking outside
@@ -118,6 +187,11 @@ function initializeMobileMenu() {
         if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
             closeMobileMenu();
         }
+    });
+    
+    // Close menu when clicking on a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
     });
 }
 
@@ -127,46 +201,29 @@ function closeMobileMenu() {
     
     navToggle.classList.remove('active');
     navMenu.classList.remove('active');
+    document.body.style.overflow = '';
 }
 
 // Hero section functionality
 function initializeHero() {
-    // const heroTexts = [
-    //     'Empowering Communities',
-    //     'Nurturing Nature',
-    //     'Educating the Future',
-    //     'Building Equality',
-    //     'Inspiring Change',
-    //     'Sustainable Impact'
-    // ];
-    
-    const changingTextElement = document.getElementById('changing-text');
-    let currentTextIndex = 0;
-    
-    // Change hero text every 3 seconds
-    setInterval(() => {
-        changingTextElement.style.opacity = '0';
-        
-        setTimeout(() => {
-            currentTextIndex = (currentTextIndex + 1) % heroTexts.length;
-            changingTextElement.textContent = heroTexts[currentTextIndex];
-            changingTextElement.style.opacity = '1';
-        }, 300);
-    }, 3000);
-    
     // Scroll to top when logo is clicked
-    document.querySelector('.nav-logo').addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+    const navLogo = document.querySelector('.nav-logo');
+    if (navLogo) {
+        navLogo.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
-    });
+    }
 }
 
-// Slideshow functionality
+// Slideshow functionality - optimized
 function initializeSlideshow() {
     const slides = document.querySelectorAll('.hero-slide');
+    if (slides.length === 0) return;
+    
     let currentSlide = 0;
     
     function showSlide(index) {
@@ -186,11 +243,11 @@ function initializeSlideshow() {
     // Initialize first slide
     showSlide(currentSlide);
     
-    // Change slide every 3 seconds
-    setInterval(nextSlide, 3000);
+    // Change slide every 4 seconds
+    setInterval(nextSlide, 4000);
 }
 
-// Scroll animations
+// Scroll animations - optimized with Intersection Observer
 function initializeScrollAnimations() {
     const observerOptions = {
         threshold: 0.1,
@@ -202,12 +259,13 @@ function initializeScrollAnimations() {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target); // Stop observing once animated
             }
         });
     }, observerOptions);
     
     // Observe elements for animation
-    const animatedElements = document.querySelectorAll('.project-card, .team-member, .story-content, .about-content');
+    const animatedElements = document.querySelectorAll('.project-card, .team-member, .story-content, .about-content, .media-card');
     animatedElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
@@ -216,12 +274,11 @@ function initializeScrollAnimations() {
     });
 }
 
-
-
-
-// Counter animation
+// Counter animation - optimized
 function initializeCounters() {
     const counters = document.querySelectorAll('.stat-number');
+    if (counters.length === 0) return;
+    
     let counterAnimated = false;
     
     const counterObserver = new IntersectionObserver((entries) => {
@@ -229,22 +286,22 @@ function initializeCounters() {
             if (entry.isIntersecting && !counterAnimated) {
                 counterAnimated = true;
                 animateCounters();
+                counterObserver.disconnect();
             }
         });
     }, { threshold: 0.5 });
     
-    if (counters.length > 0) {
-        counterObserver.observe(counters[0].closest('.impact-stats'));
-    }
+    counterObserver.observe(counters[0].closest('.impact-stats'));
 }
 
 function animateCounters() {
     const counters = document.querySelectorAll('.stat-number');
     
     counters.forEach(counter => {
-        const target = parseInt(counter.dataset.target);
+        const targetText = counter.dataset.target;
+        const target = parseInt(targetText.replace(/\+/g, ''));
         let count = 0;
-        const increment = target / 100;
+        const increment = target / 60; // 60 frames for smooth animation
         
         const updateCounter = () => {
             count += increment;
@@ -263,16 +320,19 @@ function animateCounters() {
 // Contact form functionality
 function initializeContactForm() {
     const contactForm = document.getElementById('contact-form');
+    if (!contactForm) return;
     
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const subject = document.getElementById('subject').value;
-        const message = document.getElementById('message').value;
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            subject: document.getElementById('subject').value,
+            message: document.getElementById('message').value
+        };
         
-        console.log('Form submitted:', { name, email, subject, message });
+        console.log('Form submitted:', formData);
         
         // Clear form
         contactForm.reset();
@@ -285,12 +345,17 @@ function initializeContactForm() {
 // Modal functionality
 function initializeModals() {
     const projectModal = document.getElementById('project-modal');
-    const projectModalClose = projectModal.querySelector('.modal-close');
     const galleryModal = document.getElementById('gallery-modal');
+    
+    if (!projectModal || !galleryModal) return;
+    
+    const projectModalClose = projectModal.querySelector('.modal-close');
     const galleryModalClose = galleryModal.querySelector('.modal-close');
     
     // Close project modal
-    projectModalClose.addEventListener('click', closeModal);
+    if (projectModalClose) {
+        projectModalClose.addEventListener('click', closeModal);
+    }
     projectModal.addEventListener('click', (e) => {
         if (e.target === projectModal) {
             closeModal();
@@ -298,7 +363,9 @@ function initializeModals() {
     });
     
     // Close gallery modal
-    galleryModalClose.addEventListener('click', closeGalleryModal);
+    if (galleryModalClose) {
+        galleryModalClose.addEventListener('click', closeGalleryModal);
+    }
     galleryModal.addEventListener('click', (e) => {
         if (e.target === galleryModal) {
             closeGalleryModal();
@@ -310,6 +377,7 @@ function initializeModals() {
         if (e.key === 'Escape') {
             closeModal();
             closeGalleryModal();
+            closeDonateModal();
         }
     });
 }
@@ -317,70 +385,28 @@ function initializeModals() {
 // Close project modal
 function closeModal() {
     const projectModal = document.getElementById('project-modal');
-    projectModal.style.display = 'none';
-    document.body.style.overflow = 'auto';
+    if (projectModal) {
+        projectModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
 }
 
 // Close gallery modal
 function closeGalleryModal() {
     const galleryModal = document.getElementById('gallery-modal');
-    galleryModal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-
-// Open project modal with content
-function openModal(projectId) {
-    const modal = document.getElementById('project-modal');
-    const modalBody = document.getElementById('modal-body');
-    let content = '';
-
-    // Project-specific content
-    switch (projectId) {
-        case 'sangini':
-            content = `
-                <h2>Sangini</h2>
-                <p>Sangini is dedicated to empowering women through skill development and sustainable livelihoods. We provide training in eco-friendly product creation, enabling women to achieve financial independence and contribute to their communities.</p>
-                <img src="https://images.unsplash.com/photo-1594736797933-d0200ba6e804?w=500&h=300&fit=crop" alt="Sangini Project" style="width:100%;border-radius:10px;margin-top:1rem;">
-                <p>Our programs include workshops, mentorship, and access to markets, ensuring long-term impact and empowerment.</p>
-            `;
-            break;
-        case 'gyanshala':
-            content = `
-                <h2>Samvedna Gyanshala</h2>
-                <p>Samvedna Gyanshala focuses on providing quality education to children from underserved communities. Our holistic approach includes academic support, extracurricular activities, and life skills training.</p>
-                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&h=300&fit=crop" alt="Gyanshala Project" style="width:100%;border-radius:10px;margin-top:1rem;">
-                <p>We aim to create a nurturing environment where every child can thrive and build a brighter future.</p>
-            `;
-            break;
-        case 'eshiksha':
-            content = `
-                <h2>E-Shiksha</h2>
-                <p>E-Shiksha brings digital education to remote communities, bridging the gap in access to quality learning resources. We provide digital tools, online courses, and teacher training.</p>
-                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500&h=300&fit=crop" alt="E-Shiksha Project" style="width:100%;border-radius:10px;margin-top:1rem;">
-                <p>Our goal is to ensure every child has access to modern education, regardless of their location.</p>
-            `;
-            break;
-        case 'sparrow':
-            content = `
-                <h2>Sparrow Conservation</h2>
-                <p>Our Sparrow Conservation project focuses on protecting sparrow populations through habitat restoration and community awareness. We install nesting boxes and promote sustainable practices.</p>
-                <img src="https://images.unsplash.com/photo-1517167497479-10f2e27c9db0?w=500&h=300&fit=crop" alt="Sparrow Conservation Project" style="width:100%;border-radius:10px;margin-top:1rem;">
-                <p>Join us in preserving biodiversity and protecting these vital species for future generations.</p>
-            `;
-            break;
-        default:
-            content = '<p>Project details not found.</p>';
+    if (galleryModal) {
+        galleryModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
     }
-
-    modalBody.innerHTML = content;
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
 }
 
 // Open gallery modal
 function openGalleryModal() {
     const galleryModal = document.getElementById('gallery-modal');
     const galleryGrid = document.getElementById('gallery-grid');
+    
+    if (!galleryModal || !galleryGrid) return;
+    
     const images = [
         'images/images/imageinside1.jpg',
         'images/images/imageinside2.jpg',
@@ -398,48 +424,21 @@ function openGalleryModal() {
         'images/images/imageinside14.jpg',
         'images/images/imageinside15.jpg',
         'images/images/imageinside16.jpg',
-      
     ];
 
-    galleryGrid.innerHTML = 
-    images.map(img => `
-        <img src="${img}" alt="Gallery Image" style="width:100%;height:200px;object-fit:cover;border-radius:15px;">
+    galleryGrid.innerHTML = images.map(img => `
+        <img src="${img}" alt="Gallery Image" style="width:100%;height:200px;object-fit:cover;border-radius:15px;" loading="lazy">
     `).join('');
 
     galleryModal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
 
-// Project slider functionality
-function initializeProjectSlider() {
-    const slider = document.getElementById('projects-slider');
-    const prevBtn = document.getElementById('prev-project');
-    const nextBtn = document.getElementById('next-project');
-    
-    function updateButtonStates() {
-        prevBtn.disabled = slider.scrollLeft <= 0;
-        nextBtn.disabled = slider.scrollLeft >= slider.scrollWidth - slider.clientWidth;
-    }
-    
-    prevBtn.addEventListener('click', () => {
-        const cardWidth = slider.querySelector('.project-card').offsetWidth + 32; // Including gap
-        slider.scrollBy({ left: -cardWidth, behavior: 'smooth' });
-        setTimeout(updateButtonStates, 300);
-    });
-    
-    nextBtn.addEventListener('click', () => {
-        const cardWidth = slider.querySelector('.project-card').offsetWidth + 32; // Including gap
-        slider.scrollBy({ left: cardWidth, behavior: 'smooth' });
-        setTimeout(updateButtonStates, 300);
-    });
-    
-    slider.addEventListener('scroll', updateButtonStates);
-    updateButtonStates();
-}
-
 // Scroll to contact section
 function scrollToContact() {
     const contactSection = document.getElementById('contact');
+    if (!contactSection) return;
+    
     const offsetTop = contactSection.getBoundingClientRect().top + window.pageYOffset - 80;
 
     window.scrollTo({
@@ -448,22 +447,47 @@ function scrollToContact() {
     });
 }
 
+// Donate Modal
+function initializeDonateModal() {
+    const modal = document.getElementById('qrModal');
+    const btn = document.getElementById('donateBtn');
+    const close = document.querySelector('.qr-close');
+    
+    if (!modal || !btn || !close) return;
+    
+    btn.addEventListener('click', () => {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    });
+    
+    close.addEventListener('click', closeDonateModal);
+    
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeDonateModal();
+        }
+    });
+}
 
-/* ---------- Modal Logic ---------- */
-const modal   = document.getElementById('qrModal');
-const btn     = document.getElementById('donateBtn');
-const close   = document.querySelector('.qr-close');
+function closeDonateModal() {
+    const modal = document.getElementById('qrModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+}
 
-btn.onclick = () => modal.style.display = 'flex';
-close.onclick = () => modal.style.display = 'none';
-window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
-
-
-const track = document.getElementById('storiesTrack');
+// Stories Slider
+function initializeStoriesSlider() {
+    const track = document.getElementById('storiesTrack');
     const dots = document.querySelectorAll('.dot');
-    const totalSlides = document.querySelectorAll('.story-item').length - 1; // -1 because of duplicate
+    
+    if (!track || dots.length === 0) return;
+    
+    const totalSlides = document.querySelectorAll('.story-item').length - 1;
     let currentSlide = 0;
-    const slideInterval = 5000; // 5 seconds
+    const slideInterval = 6000; // 6 seconds
+    let autoSlide;
 
     function goToSlide(index) {
         track.style.transform = `translateX(-${index * 100}%)`;
@@ -477,7 +501,6 @@ const track = document.getElementById('storiesTrack');
         currentSlide = (currentSlide + 1) % totalSlides;
         goToSlide(currentSlide);
 
-        // Seamless loop: if we reach the duplicated first slide, jump back
         if (currentSlide === totalSlides) {
             setTimeout(() => {
                 track.style.transition = 'none';
@@ -490,65 +513,38 @@ const track = document.getElementById('storiesTrack');
     }
 
     // Auto-play
-    let autoSlide = setInterval(nextSlide, slideInterval);
+    function startAutoSlide() {
+        autoSlide = setInterval(nextSlide, slideInterval);
+    }
+    
+    function stopAutoSlide() {
+        clearInterval(autoSlide);
+    }
+
+    startAutoSlide();
 
     // Dot navigation
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            clearInterval(autoSlide);
+            stopAutoSlide();
             goToSlide(index);
-            autoSlide = setInterval(nextSlide, slideInterval);
+            startAutoSlide();
         });
     });
 
     // Pause on hover
-    document.querySelector('.stories-slider').addEventListener('mouseenter', () => {
-        clearInterval(autoSlide);
-    });
+    const sliderContainer = document.querySelector('.stories-slider');
+    if (sliderContainer) {
+        sliderContainer.addEventListener('mouseenter', stopAutoSlide);
+        sliderContainer.addEventListener('mouseleave', startAutoSlide);
+    }
+}
 
-    document.querySelector('.stories-slider').addEventListener('mouseleave', () => {
-        autoSlide = setInterval(nextSlide, slideInterval);
-    });
-
-
-
-   
-document.addEventListener('DOMContentLoaded', () => {
-    // Handle clicks on Read Now buttons
-    document.querySelectorAll('.media-card .read-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation(); // prevent card click if you add it later
-            const card = this.closest('.media-card');
-            const url = card.dataset.link;
-
-            if (url && url !== '#') {
-                window.open(url, '_blank', 'noopener,noreferrer');
-            } else {
-                alert('Article link is not available yet.');
-            }
-        });
-    });
-
-    // Optional: make the entire card clickable (very user-friendly)
-    document.querySelectorAll('.media-card[data-link]').forEach(card => {
-        if (card.dataset.link && card.dataset.link !== '#') {
-            card.style.cursor = 'pointer';
-            card.addEventListener('click', function(e) {
-                // Don't trigger if clicked directly on button
-                if (e.target.closest('.btn') || e.target.closest('button')) return;
-                const url = this.dataset.link;
-                window.open(url, '_blank', 'noopener,noreferrer');
-            });
-        }
-    });
-});
-
-
-// Project "Learn More" buttons - open link in new tab
-document.addEventListener('DOMContentLoaded', () => {
+// Project Cards - Click handling
+function initializeProjectCards() {
     document.querySelectorAll('.project-card .learn-more-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
-            e.stopPropagation(); // prevent any card-level click if added later
+            e.stopPropagation();
             const card = this.closest('.project-card');
             const url = card.dataset.link;
 
@@ -560,20 +556,60 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Optional: Make the entire project card clickable (better mobile UX)
+    // Make entire card clickable
     document.querySelectorAll('.project-card[data-link]').forEach(card => {
         if (card.dataset.link && card.dataset.link.trim() !== '' && card.dataset.link !== '#') {
             card.style.cursor = 'pointer';
             card.addEventListener('click', function(e) {
-                // Don't trigger if clicked on button
                 if (e.target.closest('.btn')) return;
                 const url = this.dataset.link;
                 window.open(url, '_blank', 'noopener,noreferrer');
             });
         }
     });
+}
+
+// Media Cards - Click handling
+function initializeMediaCards() {
+    document.querySelectorAll('.media-card .read-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const card = this.closest('.media-card');
+            const url = card.dataset.link;
+
+            if (url && url !== '#') {
+                window.open(url, '_blank', 'noopener,noreferrer');
+            } else {
+                alert('Article link is not available yet.');
+            }
+        });
+    });
+
+    // Make entire card clickable
+    document.querySelectorAll('.media-card[data-link]').forEach(card => {
+        if (card.dataset.link && card.dataset.link !== '#') {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function(e) {
+                if (e.target.closest('.btn') || e.target.closest('button') || e.target.closest('iframe')) return;
+                const url = this.dataset.link;
+                window.open(url, '_blank', 'noopener,noreferrer');
+            });
+        }
+    });
+}
+
+// Performance: Reduce reflows and repaints
+window.addEventListener('load', () => {
+    // Force GPU acceleration for smooth animations
+    const animatedElements = document.querySelectorAll('.hero-slide, .project-card, .team-member');
+    animatedElements.forEach(el => {
+        el.style.willChange = 'transform, opacity';
+    });
+    
+    // Remove will-change after animations complete to save memory
+    setTimeout(() => {
+        animatedElements.forEach(el => {
+            el.style.willChange = 'auto';
+        });
+    }, 5000);
 });
-
-
-
-

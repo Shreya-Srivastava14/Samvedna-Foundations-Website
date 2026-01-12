@@ -23,32 +23,7 @@ body {
 }
 
 
-/* ── Very important global mobile fixes ── */
-html {
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
-}
 
-body {
-    font-size: 16px;          /* better base size for mobile readability */
-    min-width: 320px;         /* prevent too narrow squeezing */
-}
-
-img, iframe, video {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* Prevent horizontal scroll on body */
-html, body {
-    overflow-x: hidden;
-}
-
-/* Better box-sizing everywhere */
-*, *::before, *::after {
-    box-sizing: border-box;
-}
 
 /* Navigation Styles */
 .navbar {
@@ -949,7 +924,7 @@ object-position: top-center;
     line-height: 1.6;
 }
 
-/* Stories Section */
+/* Stories and testimonials Section */
 .story-featured {
     max-width: 1000px;
     margin: 0 auto;
