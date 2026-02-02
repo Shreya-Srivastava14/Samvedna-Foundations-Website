@@ -346,30 +346,170 @@
         /* Responsive */
         @media (max-width: 768px) {
             .container {
-                padding: 40px 20px;
+                padding: 30px 15px;
+            }
+
+            .header {
+                margin-bottom: 40px;
+            }
+
+            .brand-name h1 {
+                font-size: 1.8em;
+            }
+
+            .brand-tagline {
+                font-size: 0.85em;
             }
 
             .main-title {
                 font-size: 2em;
+                margin-bottom: 12px;
+            }
+
+            .subtitle {
+                font-size: 1em;
+                padding: 0 10px;
             }
 
             .donation-card {
-                padding: 30px 25px;
+                padding: 25px 15px;
+                border-radius: 20px;
             }
 
             .payment-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 25px;
+                margin-bottom: 30px;
+            }
+
+            .payment-section {
+                padding: 20px 15px;
+                border-radius: 15px;
+            }
+
+            .payment-section:hover {
+                transform: none;
+            }
+
+            .section-header {
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+
+            .section-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3em;
+            }
+
+            .section-title {
+                font-size: 1.25em;
+            }
+
+            .qr-container {
+                padding: 15px;
+                margin: 15px 0;
+            }
+
+            .qr-code {
+                width: 200px;
+                height: 200px;
+                margin: 0 auto 10px;
+            }
+
+            .qr-text {
+                font-size: 0.9em;
             }
 
             .detail-row {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 10px;
+                gap: 12px;
+                padding: 15px;
+            }
+
+            .detail-label {
+                font-size: 0.9em;
+            }
+
+            .detail-value {
+                font-size: 0.9em;
+                flex-wrap: wrap;
+                word-break: break-all;
+            }
+
+            .copy-btn {
+                padding: 6px 12px;
+                font-size: 0.8em;
+                flex-shrink: 0;
+            }
+
+            .footer-section {
+                margin-top: 35px;
+                padding-top: 30px;
             }
 
             .quote {
-                font-size: 1.4em;
+                font-size: 1.3em;
+                padding: 0 10px;
+                margin-bottom: 25px;
+            }
+
+            .back-btn {
+                padding: 14px 28px;
+                font-size: 1em;
+            }
+
+            .toast {
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
+                padding: 15px 20px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 12px;
+            }
+
+            .brand-name h1 {
+                font-size: 1.5em;
+            }
+
+            .main-title {
+                font-size: 1.6em;
+            }
+
+            .subtitle {
+                font-size: 0.95em;
+            }
+
+            .donation-card {
+                padding: 20px 12px;
+            }
+
+            .payment-section {
+                padding: 18px 12px;
+            }
+
+            .section-title {
+                font-size: 1.1em;
+            }
+
+            .qr-code {
+                width: 180px;
+                height: 180px;
+            }
+
+            .quote {
+                font-size: 1.15em;
+            }
+
+            .back-btn {
+                padding: 12px 24px;
+                font-size: 0.95em;
             }
         }
     </style>
