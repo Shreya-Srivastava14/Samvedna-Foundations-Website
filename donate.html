@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate - Samvedna Foundation</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, #f0fdfa 0%, #e0f2f1 50%, #ccfbf1 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Subtle animated background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(20, 184, 166, 0.1), transparent);
+            animation: wave 15s linear infinite;
+        }
+
+        .wave:nth-child(2) {
+            animation-delay: 5s;
+            opacity: 0.5;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .brand-name h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #0f766e;
+            margin-bottom: 5px;
+        }
+
+        .brand-tagline {
+            color: #14b8a6;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .main-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3em;
+            font-weight: 700;
+            color: #134e4a;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.15em;
+            color: #0f766e;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* Main Content Card */
+        .donation-card {
+            background: white;
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(20, 184, 166, 0.15);
+            animation: slideUp 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .donation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #14b8a6, #0d9488, #14b8a6);
+        }
+
+        /* Grid Layout */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .payment-section {
+            padding: 30px;
+            background: #f0fdfa;
+            border-radius: 20px;
+            border: 2px solid #ccfbf1;
+            transition: all 0.3s ease;
+        }
+
+        .payment-section:hover {
+            border-color: #14b8a6;
+            box-shadow: 0 10px 30px rgba(20, 184, 166, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #134e4a;
+        }
+
+        /* QR Code */
+        .qr-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+            border: 2px solid #ccfbf1;
+        }
+
+        .qr-code {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 15px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #14b8a6;
+            padding: 10px;
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .qr-placeholder {
+            font-size: 3em;
+            color: #14b8a6;
+        }
+
+        .qr-text {
+            color: #0f766e;
+            font-size: 0.95em;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        /* Bank Details */
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .detail-row:hover {
+            border-color: #14b8a6;
+            background: #f0fdfa;
+        }
+
+        .detail-label {
+            color: #0f766e;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .detail-value {
+            color: #134e4a;
+            font-weight: 600;
+            font-family: 'Space Grotesk', monospace;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Buttons */
+        .copy-btn {
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85em;
+            transition: all 0.3s ease;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(20, 184, 166, 0.3);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Footer */
+        .footer-section {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 2px solid #ccfbf1;
+        }
+
+        .quote {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #134e4a;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            color: white;
+            padding: 16px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05em;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(20, 184, 166, 0.3);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(20, 184, 166, 0.4);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 18px 28px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            display: none;
+            animation: slideIn 0.3s ease;
+            font-weight: 600;
+            z-index: 1000;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            .main-title {
+                font-size: 2em;
+            }
+
+            .donation-card {
+                padding: 30px 25px;
+            }
+
+            .payment-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .quote {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="brand-name" style="text-align: center; margin-bottom: 30px;">
+                <h1>Samvedna Foundation</h1>
+                <p class="brand-tagline">Let's work together for humanity and nature</p>
+            </div>
+            <h2 class="main-title">Support Our Mission</h2>
+            <p class="subtitle">Your generous contribution helps us empower communities through education, women empowerment, and environmental conservation</p>
+        </div>
+
+        <!-- Main Donation Card -->
+        <div class="donation-card">
+            <div class="payment-grid">
+                <!-- QR Code Section -->
+                <div class="payment-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <h3 class="section-title">QR Code Payment</h3>
+                    </div>
+
+                    <div class="qr-container">
+                        <div class="qr-code">
+                            <!-- Replace 'your-qr-code.png' with your actual QR code image path -->
+                            <img src="images/images/qrcode_final.png" alt="Payment QR Code">
+                        </div>
+                        <p class="qr-text">Scan with any payment app to donate</p>
+                    </div>
+                </div>
+
+                <!-- Bank Transfer Section -->
+                <div class="payment-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h3 class="section-title">Bank Transfer</h3>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Account Name</span>
+                        <span class="detail-value">Samvedna Foundation</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Account Number</span>
+                        <span class="detail-value">
+                            083322010000594
+                            <button class="copy-btn" onclick="copyToClipboard('083322010000594')">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">IFSC Code</span>
+                        <span class="detail-value">
+                            UBIN0908339
+                            <button class="copy-btn" onclick="copyToClipboard('UBIN0908339')">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer-section">
+                <p class="quote">"A small donation can bring a big change in someone's life"</p>
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                showToast('✓ Copied: ' + text);
+            }, function(err) {
+                showToast('Failed to copy');
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            
+            setTimeout(function() {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
