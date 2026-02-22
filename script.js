@@ -408,22 +408,107 @@ function openGalleryModal() {
     if (!galleryModal || !galleryGrid) return;
     
     const images = [
-        'images/images/imageinside1.jpg',
-        'images/images/imageinside2.jpg',
-        'images/images/imageinside3.jpg',
-        'images/images/imageinside4.jpg',
-        'images/images/imageinside5.jpg',
-        'images/images/imageinside6.jpg',
-        'images/images/imageinside7.jpg',
-        'images/images/imageinside8.jpg',
-        'images/images/imageinside9.jpg',
-        'images/images/imageinside10.jpg',
-        'images/images/imageinside11.jpg',
-        'images/images/imageinside12.jpg',
-        'images/images/imageinside13.jpg',
-        'images/images/imageinside14.jpg',
-        'images/images/imageinside15.jpg',
-        'images/images/imageinside16.jpg',
+        'images/images/gallerypic1.webp',
+        'images/images/gallerypic2.webp',
+        'images/images/gallerypic3.webp',
+        'images/images/gallerypic4.webp',
+        'images/images/gallerypic5.webp',
+        'images/images/gallerypic6.webp',
+        'images/images/gallerypic7.webp',
+        'images/images/gallerypic8.webp',
+        'images/images/gallerypic9.webp',
+        'images/images/gallerypic10.webp',
+        'images/images/gallerypic11.webp',
+        'images/images/gallerypic12.webp',
+        'images/images/gallerypic13.webp',
+        'images/images/gallerypic14.webp',
+        'images/images/gallerypic15.webp',
+        'images/images/gallerypic16.webp',
+        'images/images/gallerypic17.webp',
+        'images/images/gallerypic18.webp',
+        'images/images/gallerypic19.webp',
+        'images/images/gallerypic20.webp',
+        'images/images/gallerypic21.webp',
+        'images/images/gallerypic22.webp',
+        'images/images/gallerypic23.webp',
+        'images/images/gallerypic24.webp',
+        'images/images/gallerypic25.webp',
+        'images/images/gallerypic26.webp',
+        'images/images/gallerypic27.webp',
+        'images/images/gallerypic28.webp',
+        'images/images/gallerypic29.webp',
+        'images/images/gallerypic30.webp',
+        'images/images/gallerypic31.webp',
+        'images/images/gallerypic32.webp',
+        'images/images/gallerypic33.webp',
+        'images/images/gallerypic34.webp',
+        'images/images/gallerypic35.webp',
+        'images/images/gallerypic6.webp',
+        'images/images/gallerypic37.webp',
+        'images/images/gallerypic38.webp',
+        'images/images/gallerypic39.webp',
+        'images/images/gallerypic40.webp',
+        'images/images/gallerypic41.webp',
+        'images/images/gallerypic42.webp',
+        'images/images/gallerypic43.webp',
+        'images/images/gallerypic44.webp',
+        'images/images/gallerypic45.webp',
+        'images/images/gallerypic46.webp',
+        'images/images/gallerypic47.webp',
+        'images/images/gallerypic48.webp',
+        'images/images/gallerypic49.webp',
+        'images/images/gallerypic50.webp',
+        'images/images/gallerypic51.webp',
+        'images/images/gallerypic52.webp',
+        'images/images/gallerypic53.webp',
+        'images/images/gallerypic54.webp',
+        'images/images/gallerypic55.webp',
+        'images/images/gallerypic56.webp',
+        'images/images/gallerypic57.webp',
+        'images/images/gallerypic58.webp',
+        'images/images/gallerypic59.webp',
+        'images/images/gallerypic60.webp',
+        'images/images/gallerypic61.webp',
+        'images/images/gallerypic62.webp',
+        'images/images/gallerypic63.webp',
+        'images/images/gallerypic64.webp',
+        'images/images/gallerypic65.webp',
+        'images/images/gallerypic66.webp',
+        'images/images/gallerypic67.webp',
+        'images/images/gallerypic68.webp',
+        'images/images/gallerypic69.webp',
+        'images/images/gallerypic70.webp',
+        'images/images/gallerypic71.webp',
+        'images/images/gallerypic72.webp',
+        'images/images/gallerypic73.webp',
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     ];
 
     galleryGrid.innerHTML = images.map(img => `
