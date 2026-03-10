@@ -485,7 +485,7 @@ function openGalleryModal() {
        ];
 
     galleryGrid.innerHTML = images.map(img => `
-        <img src="${img}" alt="Gallery Image" style="width:100%;height:200px;object-fit:contain;border-radius:15px;" loading="lazy">
+        <img src="${img}" alt="Gallery Image" style="width:100%;height:200px;object-fit:cover;border-radius:15px;" loading="lazy">
     `).join('');
 
     galleryModal.style.display = 'block';
