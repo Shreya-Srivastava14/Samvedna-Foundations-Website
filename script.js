@@ -443,7 +443,7 @@ function openGalleryModal() {
         'images/images/gallerypic33.webp',
         'images/images/gallerypic34.webp',
         'images/images/gallerypic35.webp',
-        'images/images/gallerypic6.webp',
+        'images/images/gallerypic36.webp',
         'images/images/gallerypic37.webp',
         'images/images/gallerypic38.webp',
         'images/images/gallerypic39.webp',
@@ -481,38 +481,11 @@ function openGalleryModal() {
         'images/images/gallerypic71.webp',
         'images/images/gallerypic72.webp',
         'images/images/gallerypic73.webp',
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    ];
+        
+       ];
 
     galleryGrid.innerHTML = images.map(img => `
-        <img src="${img}" alt="Gallery Image" style="width:100%;height:200px;object-fit:cover;border-radius:15px;" loading="lazy">
+        <img src="${img}" alt="Gallery Image" style="width:100%;height:200px;object-fit:contain;border-radius:15px;" loading="lazy">
     `).join('');
 
     galleryModal.style.display = 'block';
