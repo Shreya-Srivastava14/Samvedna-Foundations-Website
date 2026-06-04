@@ -1320,20 +1320,36 @@ object-position: top-center;
     min-height: 120px;
 }
 
+  /* Partner*/
+
+
 /* Partners Section */
 .partners {
     background: #f8fafc;
+    padding: 4rem 0;
+}
+
+.partners .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.partners-track-wrapper {
     overflow: hidden;
-    display:flex;
-    justify-content: center;
+    width: 100%;
 }
 
 .partners-slider {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 2.5rem;
-   /*  animation: autoScroll 20s linear infinite;*/
     width: max-content;
+    animation: autoScroll 60s linear infinite;
+}
+
+.partners-slider:hover {
+    animation-play-state: paused;
 }
 
 .partner-card {
@@ -1356,6 +1372,9 @@ object-position: top-center;
     margin: 0 auto 1rem;
     border-radius: 50%;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .partner-image img {
@@ -1365,27 +1384,70 @@ object-position: top-center;
 }
 
 .partner-content h3 {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: #0d9488;
     margin-bottom: 0.5rem;
+    line-height: 1.4;
 }
 
 .partner-content p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #666;
+    line-height: 1.4;
 }
 
 @keyframes autoScroll {
-    0% {
-        transform: translateX(0);
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .partners {
+        padding: 2.5rem 0;
     }
-    100% {
-        transform: translateX(-1000px);
+
+    .partner-card {
+        flex: 0 0 160px;
+        padding: 1rem;
+    }
+
+    .partner-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .partner-content h3 {
+        font-size: 0.85rem;
+    }
+
+    .partners-slider {
+        gap: 1.5rem;
+        animation: autoScroll 40s linear infinite;
     }
 }
 
+@media (max-width: 480px) {
+    .partner-card {
+        flex: 0 0 140px;
+        padding: 0.85rem;
+    }
 
+    .partner-image {
+        width: 70px;
+        height: 70px;
+    }
+
+    .partner-content h3 {
+        font-size: 0.8rem;
+    }
+
+    .partners-slider {
+        gap: 1rem;
+        animation: autoScroll 35s linear infinite;
+    }
+}
 /* Footer */
 .footer {
     background: #1a1a1a;
