@@ -340,6 +340,18 @@ body {
         object-fit: contain !important; /* Shows entire image without cropping */
         object-position: bottom center !important;
     }
+
+    /* Fix cropping for all other images on mobile */
+    .project-image img,
+    .media-image img,
+    .member-image img,
+    .story-image img,
+    .partner-image img,
+    .founder-image img,
+    .gallery-preview img {
+        object-fit: contain !important;
+        background-color: transparent;
+    }
 }
 
 
