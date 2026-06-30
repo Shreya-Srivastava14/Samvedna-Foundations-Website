@@ -321,7 +321,8 @@ body {
 }
 @media (max-width: 768px) {
     .hero {
-        height: 85vh;              /* less height → more content visible */
+        height: 35vh; /* Fits a typical landscape image tightly on mobile screens */
+        min-height: 250px;
     }
 
     .hero-title {
@@ -334,7 +335,9 @@ body {
 
     .hero-slide img,
     .hero-slide-reflection img {
-        object-position: center center !important; /* better centering on mobile */
+        object-fit: contain !important; /* Shows entire image without cropping */
+        object-position: center center !important;
+        background-color: #111; /* subtle dark background for any minor letterboxing */
     }
 }
 

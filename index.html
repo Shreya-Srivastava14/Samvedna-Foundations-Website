@@ -10,7 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Defer FontAwesome loading -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
     
     <!-- Preload LCP hero image -->
     <link rel="preload" as="image" href="images/images/homepageimagejune1.jpg" fetchpriority="high">
@@ -22,7 +25,7 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="images/images/samvendna foundatioin logo (1).png" alt="Samvedna Foundations" class="logo-img" fetchpriority="high">
+                <img src="images/images/samvendna foundatioin logo (1).png" alt="Samvedna Foundations" class="logo-img" width="50" height="50" fetchpriority="high">
                 <span class="logo-text">
     <span class="logo-main">Samvedna</span><br>
     <span class="logo-sub">Foundations (Regd.)</span><br>
@@ -41,7 +44,7 @@
                 <a href="#donate" class="nav-link" data-section="donate">Donate</a>
                 <a href="#contact" class="nav-link" data-section="contact">Contact</a>
             </div>
-            <div class="nav-toggle" id="nav-toggle">
+            <div class="nav-toggle" id="nav-toggle" role="button" tabindex="0" aria-label="Toggle mobile menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -138,7 +141,6 @@
 
             <div class="about-content">
                 <div class="about-text">
-                    
                     <p>Samvedna Foundations is a non-governmental organization (NGO) founded on April 16, 2022, dedicated to creating a compassionate and sustainable society. Our work focuses on sparrow conservation, education for underprivileged children, and women’s empowerment—areas where meaningful action can bring lasting change.</p>
                     <p>We believe every child deserves access to education, every woman deserves the opportunity to grow and become self-reliant, and nature deserves our protection. Through initiatives like Ashiyana for Sparrow, Samvedna Gyanshala, and Sangini, we work closely with communities, volunteers, and supporters to turn awareness into action.</p>
                     <p>The foundation was established by Mrs. Shweta Gupta, a B.Tech Computer Science graduate and former corporate professional who chose social service over comfort. Inspired by the declining sparrow population and the challenges faced by underprivileged children and women, she began this journey with a strong belief in collective effort and sustainable impact.</p>
@@ -1179,7 +1181,7 @@
 
     <!-- Floating Contact Button -->
     <div class="floating-contact">
-        <button class="floating-btn" onclick="scrollToContact()">
+        <button class="floating-btn" aria-label="Contact Us" onclick="scrollToContact()">
             <i class="fas fa-comment"></i>
         </button>
     </div>
