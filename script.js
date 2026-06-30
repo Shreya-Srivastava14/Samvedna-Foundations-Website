@@ -47,29 +47,26 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeProjectCards();
     initializeMediaCards();
     
-    // Lazy load images
-    if ('IntersectionObserver' in window) {
-        lazyLoadImages();
-    }
+    // Initialize YouTube Facades
+    initializeYouTubeFacades();
 });
 
-// Lazy load images for better performance
-function lazyLoadImages() {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                if (img.dataset.src) {
-                    img.src = img.dataset.src;
-                    img.removeAttribute('data-src');
-                }
-                observer.unobserve(img);
-            }
+// YouTube Facades for performance (click-to-load)
+function initializeYouTubeFacades() {
+    document.querySelectorAll('.youtube-facade').forEach(facade => {
+        facade.addEventListener('click', function() {
+            const videoId = this.dataset.videoId;
+            const iframe = document.createElement('iframe');
+            iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`);
+            iframe.setAttribute('title', 'YouTube video player');
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+            iframe.setAttribute('allowfullscreen', 'true');
+            
+            // Replace facade content with iframe
+            this.innerHTML = '';
+            this.appendChild(iframe);
         });
-    });
-
-    document.querySelectorAll('img[data-src]').forEach(img => {
-        imageObserver.observe(img);
     });
 }
 

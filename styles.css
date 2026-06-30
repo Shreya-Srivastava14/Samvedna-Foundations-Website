@@ -251,27 +251,14 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    -webkit-box-reflect: below 0px linear-gradient(to bottom, rgba(255,255,255,0.0), rgba(255,255,255,0.4));
 }
 .hero-slide img.top-focus {
     object-position: top center;
 }
 
-
 .hero-slide-reflection {
-    position: absolute;
-    bottom: -30%;
-    left: 0;
-    width: 100%;
-    height: 30%;
-    /* background: linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(255,255,255,0)); */
-    transform: scaleY(-1);
-    opacity: 0.4;
-}
-
-.hero-slide-reflection img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    display: none; /* No longer needed with webkit-box-reflect */
 }
 
 .hero-overlay {
@@ -796,6 +783,54 @@ object-position: top-center;
 .media-card:hover .media-image img,
 .media-card:hover .media-image iframe {
     transform: scale(1.1);
+}
+
+/* YouTube Facade (click-to-load) styles */
+.youtube-facade {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background: #000;
+}
+
+.youtube-facade img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.youtube-facade:hover img {
+    transform: scale(1.05);
+}
+
+.youtube-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    opacity: 0.85;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+}
+
+.youtube-play-btn:hover {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.youtube-facade iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 .media-overlay {
