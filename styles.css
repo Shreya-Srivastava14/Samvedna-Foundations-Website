@@ -251,16 +251,26 @@ body {
 .hero-slide img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Prevents any cropping */
-    object-position: bottom center; /* Aligns with reflection */
-    -webkit-box-reflect: below 0px linear-gradient(to bottom, rgba(255,255,255,0.0), rgba(255,255,255,0.4));
+    object-fit: contain;
+    object-position: center center;
 }
 .hero-slide img.top-focus {
-    object-position: bottom center; /* Override top-focus since it's contained now */
+    object-position: center center;
 }
 
 .hero-slide-reflection {
-    display: none; /* No longer needed with webkit-box-reflect */
+    display: none;
+}
+
+/* Reflection effect — DESKTOP ONLY */
+@media (min-width: 769px) {
+    .hero-slide img {
+        -webkit-box-reflect: below 0px linear-gradient(to bottom, rgba(255,255,255,0.0), rgba(255,255,255,0.4));
+        object-position: bottom center;
+    }
+    .hero-slide img.top-focus {
+        object-position: bottom center;
+    }
 }
 
 .hero-overlay {
@@ -328,6 +338,7 @@ body {
         min-height: unset !important;
         overflow: visible !important;
         background-color: #fff !important;
+        padding-top: 100px !important; /* Push below fixed navbar */
     }
 
     .hero-background {
