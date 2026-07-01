@@ -403,8 +403,7 @@ body {
     }
 
     .hero-content {
-        position: relative !important;
-        padding: 20px 15px !important;
+        display: none !important; /* Hero text is empty, remove gap */
     }
 
     .hero-title {
@@ -427,6 +426,25 @@ body {
     .gallery-preview img {
         object-fit: contain !important;
         background-color: transparent;
+    }
+
+    /* Reduce gap between hero and about section on mobile */
+    .about {
+        padding-top: 15px !important;
+    }
+
+    section {
+        padding: 30px 0 !important;
+    }
+
+    .section-header {
+        margin-bottom: 1.5rem !important;
+    }
+
+    /* Filter buttons on mobile */
+    .filter-btn {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.85rem !important;
     }
 }
 
@@ -830,12 +848,19 @@ object-position: top-center;
 
 /* Media Spotlights Section */
 .filter-buttons {
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
     margin-bottom: 2rem;
 }
 
 .filter-btn {
-    margin: 0 0.5rem;
+    margin: 0;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.95rem;
+    white-space: nowrap;
 }
 
 .media-grid {
