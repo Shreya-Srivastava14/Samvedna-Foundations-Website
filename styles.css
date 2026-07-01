@@ -332,18 +332,21 @@ body {
     transform: rotate(45deg);
 }
 @media (max-width: 768px) {
-    /* === MOBILE HERO: No cropping, no black bars === */
+    /* === MOBILE HERO: Full-width, centered, no cropping === */
     .hero {
         height: auto !important;
         min-height: unset !important;
         overflow: visible !important;
-        background-color: #fff !important;
-        padding-top: 100px !important; /* Push below fixed navbar */
+        background-color: #f8f9fa !important;
+        padding-top: 110px !important; /* Push below fixed navbar */
+        padding-bottom: 10px !important;
+        display: block !important; /* Override flex — prevents left-shift */
     }
 
     .hero-background {
         position: relative !important;
         height: auto !important;
+        width: 100% !important;
         background-color: transparent !important;
         z-index: auto !important;
     }
@@ -351,6 +354,7 @@ body {
     .hero-slideshow {
         position: relative !important;
         height: auto !important;
+        width: 100% !important;
     }
 
     /* Hidden slides stay absolute and invisible */
@@ -370,7 +374,7 @@ body {
         opacity: 1;
     }
 
-    /* Images display at full natural size — ZERO cropping */
+    /* Images: full-width, centered, attractive */
     .hero-slide img,
     .hero-slide img.top-focus {
         width: 100% !important;
@@ -379,6 +383,9 @@ body {
         object-position: unset !important;
         -webkit-box-reflect: none !important;
         display: block !important;
+        margin: 0 auto !important;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
     }
 
     .hero-slide-reflection {
@@ -389,12 +396,24 @@ body {
         display: none !important;
     }
 
+    /* Hide scroll indicator on mobile */
+    .scroll-indicator {
+        display: none !important;
+    }
+
+    .hero-content {
+        position: relative !important;
+        padding: 20px 15px !important;
+    }
+
     .hero-title {
         font-size: 2.4rem;
+        color: #0d9488 !important;
     }
 
     .hero-subtitle {
         font-size: 1.2rem;
+        color: #555 !important;
     }
 
     /* Fix cropping for all other images on mobile */
