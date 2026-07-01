@@ -227,9 +227,26 @@ function initializeSlideshow() {
         slides.forEach((slide, i) => {
             slide.classList.remove('active');
             if (i === index) {
+                // Dynamic lazy-load slideshow image
+                const img = slide.querySelector('img[data-src]');
+                if (img) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                }
                 slide.classList.add('active');
             }
         });
+        
+        // Pre-load the next slide's image to ensure seamless transitions
+        const nextIndex = (index + 1) % slides.length;
+        const nextSlide = slides[nextIndex];
+        if (nextSlide) {
+            const nextImg = nextSlide.querySelector('img[data-src]');
+            if (nextImg) {
+                nextImg.src = nextImg.dataset.src;
+                nextImg.removeAttribute('data-src');
+            }
+        }
     }
     
     function nextSlide() {
@@ -254,8 +271,7 @@ function initializeScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('animate-in');
                 observer.unobserve(entry.target); // Stop observing once animated
             }
         });
@@ -264,9 +280,6 @@ function initializeScrollAnimations() {
     // Observe elements for animation
     const animatedElements = document.querySelectorAll('.project-card, .team-member, .story-content, .about-content, .media-card');
     animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
 }

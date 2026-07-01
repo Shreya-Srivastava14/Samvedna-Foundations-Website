@@ -265,10 +265,10 @@ body {
 @media (min-width: 769px) {
     .hero-slide img {
         -webkit-box-reflect: below 0px linear-gradient(to bottom, rgba(255,255,255,0.0), rgba(255,255,255,0.4));
-        object-position: bottom center;
+        object-position: center center;
     }
     .hero-slide img.top-focus {
-        object-position: bottom center;
+        object-position: top center;
     }
 }
 
@@ -464,7 +464,7 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(45deg, #0d9488, #14b8a6);
+    background: linear-gradient(45deg, #0d9488, #0f766e);
     color: white;
     box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
 }
@@ -476,12 +476,12 @@ body {
 
 .btn-outline {
     background: transparent;
-    color: #0d9488;
-    border: 2px solid #0d9488;
+    color: #0f766e;
+    border: 2px solid #0f766e;
 }
 
 .btn-outline:hover {
-    background: #0d9488;
+    background: #0f766e;
     color: white;
     transform: translateY(-3px);
 }
@@ -1361,13 +1361,7 @@ object-position: top-center;
     to   {transform:translateY(0); opacity:1;} 
 }
 
-/* keep your existing button styles */
-.btn-primary {
-    /* example – replace with your own */
-    background:#28a745; color:#fff; border:none; padding:.8rem 1.6rem;
-    font-size:1rem; border-radius:6px; cursor:pointer;
-}
-.btn-primary:hover { background:#218838; }
+
 
 
 /* Contact Section */
@@ -1538,7 +1532,7 @@ object-position: top-center;
 .partner-content h3 {
     font-size: 0.95rem;
     font-weight: 600;
-    color: #0d9488;
+    color: #0f766e;
     margin-bottom: 0.5rem;
     line-height: 1.4;
 }
@@ -1996,4 +1990,16 @@ object-position: top-center;
     .section-subtitle {
         font-size: 1.05rem;
     }
+}
+
+/* Scroll Animation Classes to prevent CLS */
+.project-card, .team-member, .story-content, .about-content, .media-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    will-change: transform, opacity;
+}
+.project-card.animate-in, .team-member.animate-in, .story-content.animate-in, .about-content.animate-in, .media-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
 }
