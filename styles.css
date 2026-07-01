@@ -338,7 +338,7 @@ body {
     .hero-slide img,
     .hero-slide-reflection img {
         object-fit: contain !important; /* Shows entire image without cropping */
-        object-position: bottom center !important;
+        object-position: center center !important;
     }
 
     /* Fix cropping for all other images on mobile */
